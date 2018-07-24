@@ -1,0 +1,66 @@
+#wrapper .login-form .footer .register {
+    float:left;
+    padding: 11px 25px;
+
+    font-family: 'Bree Serif', serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: #fff;
+    text-shadow: 0px 1px 0 rgba(0,0,0,0.25);
+
+    background: #56c2e1;
+    border: 1px solid #46b3d3;
+    border-radius: 5px;
+    cursor: pointer;
+
+    box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+    -moz-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+    -webkit-box-shadow: inset 0 0 2px rgba(256,256,256,0.75);
+}
+
+#wrapper .login-form .footer .register:hover {
+    background: #3f9db8;
+    border: 1px solid rgba(256,256,256,0.75);
+
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+#wrapper .login-form .footer .register:focus {
+    position: relative;
+    bottom: -1px;
+
+    background: #56c2e1;
+
+    box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+    -moz-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+    -webkit-box-shadow: inset 0 1px 6px rgba(256,256,256,0.75);
+}
+
+
+#wrapper .login-form .footer .button {
+    display: block;
+    float: right;
+    padding: 10px 5px 10px 0;
+    margin-right: 20px;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    font-family: 'Bree Serif', serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: #414848;
+    text-shadow: 0px 1px 0 rgba(256,256,256,0.5);
+}
+
+#wrapper .login-form .footer .button:hover {
+    color: #3f9db8;
+}
+
+#wrapper .login-form .footer .button:focus {
+    position: relative;
+    bottom: -1px;
+}
