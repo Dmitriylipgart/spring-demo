@@ -6,6 +6,7 @@ import com.example.demo.entity.User;
 import com.example.demo.repositories.FileRecordRepository;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.services.FileRecordServiceImpl;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,7 +31,7 @@ import java.util.Set;
 @Controller
 public class Controllers {
 
-    String path = "E:\\spring-demo\\src\\main\\resources\\static\\files\\";
+
 
     @Autowired
     UserRepository users;
@@ -39,11 +40,13 @@ public class Controllers {
     RoleRepository roles;
 
     @Autowired
-    FileRecordRepository fileRecordRepository;
+    FileRecordServiceImpl fileRecordService;
+
+
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
-    
+
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUser(@RequestParam (name = "username", required = false) String username,
@@ -61,51 +64,29 @@ public class Controllers {
         return "redirect:/login";
     }
 
-
     @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String handleUpload(
             @RequestParam(value = "file", required = false) MultipartFile multipartFile,
-            @RequestParam(value = "description", required = false) String description,
-            HttpServletResponse httpServletResponse) {
+            @RequestParam(value = "description", required = false) String description) {
 
-        String filename = multipartFile.getOriginalFilename();
-        String filePath = path + filename;
-        File dest = new File(filePath);
-        int i = 0;
-        while (dest.exists()) {
-            if (i == 0) {
-                filename = filename.substring(0, filename.lastIndexOf(".")) + "(" + ++i + ")" + filename.substring(filename.lastIndexOf("."));
-            } else {
-                filename = filename.substring(0, filename.lastIndexOf("(") + 1) + ++i + ")" + filename.substring(filename.lastIndexOf("."));
-            }
-            dest = new File(path + filename);
-        }
-        fileRecordRepository.saveAndFlush(new FileRecord(filename, description, filePath));
-        try {
-            multipartFile.transferTo(dest);
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-            return "File uploaded failed:" + filename;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "File uploaded failed:" + filename;
-        }
+        fileRecordService.addFileRecord(multipartFile, description);
+
         return "redirect:/loadAll";
     }
 
-    @RequestMapping(value = "/loadAll", method = RequestMethod.POST)
+    @RequestMapping(value = "/loadAll", method = { RequestMethod.POST, RequestMethod.GET })
     public String loadAll(Model model){
-        List<FileRecord> records = fileRecordRepository.findAll();
+        List<FileRecord> records = fileRecordService.getAll();
         model.addAttribute("size", records.size());
         model.addAttribute("records", records);
         return "main";
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public String delete(@RequestParam(value = "file_id", required = false) String id,
-                         @RequestParam(value = "filename", required = false) String filename){
-        fileRecordRepository.deleteById(Long.valueOf(id));
-        new File(path + filename).delete();
+    public String delete(@RequestParam(value = "file_id", required = false) String id)
+    {
+        fileRecordService.delete(Long.valueOf(id));
+
         return "redirect:/loadAll";
     }
 }

@@ -27,8 +27,7 @@ import java.util.List;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
-    @Qualifier(value = "userdetails")
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -49,8 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .loginPage("/login")
                 .failureUrl("/login?error")
                 .successForwardUrl("/loadAll")
-//                .usernameParameter("user")
-//                .passwordParameter("password")
                 .permitAll();
     }
 

@@ -28,8 +28,4 @@ public class DemoApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean(name = "userdetails")
-	public static UserDetailsService userDetailsService(){
-		return new UserDetailsServiceImpl();
-	}
 }
