@@ -17,11 +17,9 @@
         <div class="header">
             <h1>Авторизация</h1>
             <span>Введите ваши регистрационные данные для входа. </span>
-            <p>
-                <span>Подсказка: Пока это - login и password. )) </span>
-            </p>
-            <!--<p ><span style="color: red">${AuthError}</span></p>-->
-
+            <span th:if="${param.error}" style="color: red">
+                Invalid username and password.
+            </span>
         </div>
 
         <div class="content">
@@ -33,16 +31,7 @@
             <input type="submit" name="submit" value="ВОЙТИ" class="button" />
             <a th:href="@{/register}" class="register">Регистрация</a>
         </div>
-
     </form>
-
-    <!--<form th:action="@{/login}" method="post">-->
-        <!--<label for="username">Username</label>:-->
-        <!--<input type="text" id="username" name="username" autofocus="autofocus" /> <br />-->
-        <!--<label for="password">Password</label>:-->
-        <!--<input type="password" id="password" name="password" /> <br />-->
-        <!--<input type="submit" value="Log in" />-->
-    <!--</form>-->
 </div>
 
 

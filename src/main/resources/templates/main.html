@@ -26,10 +26,6 @@
     </form>
 </div>
 
-
-
-
-
 <table >
     <tr>
         <th>Имя файла</th>
@@ -37,15 +33,12 @@
         <th>Скачать</th>
         <th>Удалить</th>
     </tr>
-</table>
-
-<table >
         <tr th:each="record : ${records}">
             <td><a th:href="@{${record.filePath}}" th:text="${record.fileName}"></a></td>
             <td th:text="${record.description}"></td>
             <td><a th:href="@{${record.filePath}}" download><i class="fas fa-arrow-alt-circle-down"></i></a></td>
             <td>
-                <form action="delete" method="post" enctype="multipart/form-data">
+                <form th:action="@{delete}" method="post" enctype="multipart/form-data">
                     <input type="text" name="file_id"  th:value="${record.id}" style="display: none">
                     <input type="text" name="filename"  th:value="${record.fileName}" value="${record.fileName}" style="display: none">
                     <input type="submit" th:id="deleteButton + ${record.id}" style="display: none">

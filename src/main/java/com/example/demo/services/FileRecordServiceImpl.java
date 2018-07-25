@@ -41,8 +41,8 @@ public class FileRecordServiceImpl implements FileRecordService{
     @Override
     public void delete(long id) {
 
+        new File(path + fileRecordRepository.getOne(id).getFileName()).delete();
         fileRecordRepository.deleteById(Long.valueOf(id));
-        new File(path + fileRecordRepository.getOne(id)).delete();
 
     }
 
@@ -52,7 +52,6 @@ public class FileRecordServiceImpl implements FileRecordService{
     }
 
     private void saveFileToDB(String filename, String description){
-
         String filePathForDb = "/files/" + filename;
         fileRecordRepository.saveAndFlush(new FileRecord(filename, description, filePathForDb));
     }
