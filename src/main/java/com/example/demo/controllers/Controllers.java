@@ -8,6 +8,7 @@ import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.FileRecordServiceImpl;
 import com.example.demo.services.UserService;
+import com.example.demo.services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,6 +42,9 @@ public class Controllers {
 
     @Autowired
     FileRecordServiceImpl fileRecordService;
+
+    @Autowired
+    UserServiceImpl userService;
 
 
 
@@ -79,6 +83,7 @@ public class Controllers {
         List<FileRecord> records = fileRecordService.getAll();
         model.addAttribute("size", records.size());
         model.addAttribute("records", records);
+        model.addAttribute("user", userService.getCurrentUsername());
         return "main";
     }
 
