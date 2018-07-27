@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adminpage</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+<header>
+    <h1>Админка</h1>
+    <div>Вы вошли как <span th:text="${user}"></span></div>
+</header>
+
+<div class="wrapper">
+
+    <form th:action="@{/addRole}" method="post"  class="login-form">
+
+        <select th:each="record : ${users}" name="username" >
+            <option th:value="${users.username}"></option>
+        </select>
+
+        <select  th:each="record : ${roles}" name="rolename">
+            <option th:value="${roles.name}"></option>
+        </select>
+
+        <input type="submit" class="button" value="Сменить роль"/>
+
+    </form>
+</div>
+
+</body>
+</html>

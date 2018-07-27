@@ -68,6 +68,16 @@ public class Controllers {
         return "redirect:/login";
     }
 
+    @RequestMapping(value = "/addRole", method = RequestMethod.POST)
+    public String addRole(@RequestParam (name = "username", required = false) String username,
+                          @RequestParam (name = "role", required = false) String role)
+    {
+
+        userService.updateUser(username, role);
+
+        return "redirect:/login";
+    }
+
     @RequestMapping(value = "/save", method = RequestMethod.POST,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String handleUpload(
             @RequestParam(value = "file", required = false) MultipartFile multipartFile,
@@ -87,6 +97,21 @@ public class Controllers {
         return "main";
     }
 
+    @RequestMapping(value = "/adminpageloader", method = { RequestMethod.POST, RequestMethod.GET })
+    public String adminpageLoader(Model model){
+
+        List<User> users = userService.getAll();
+        List<Role> rolesList = roles.findAll();
+        model.addAttribute("users", users);
+        model.addAttribute("roles", rolesList);
+        model.addAttribute("user", userService.getCurrentUsername());
+
+        return "adminpage";
+    }
+
+
+
+
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     public String delete(@RequestParam(value = "file_id", required = false) String id)
     {
@@ -94,4 +119,6 @@ public class Controllers {
 
         return "redirect:/loadAll";
     }
+
+
 }

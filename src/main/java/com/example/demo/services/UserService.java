@@ -9,7 +9,7 @@ public interface UserService {
 
     User addUser(User user);
     User getByName(String name);
-    User updateUser(User bank);
+    User updateUser(String user, String role);
     void delete(long id);
     List<User> getAll();
 }

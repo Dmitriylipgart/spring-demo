@@ -13,6 +13,10 @@
     <div>Вы вошли как <span th:text="${user}"></span></div>
 </header>
 
+<form th:action="@{/adminpageloader}" method="post" style="float: right" class="login-form">
+    <input type="submit" class="button" value="В админку">
+</form>
+
 <div class="wrapper">
 
     <form th:action="@{/save}" method="post" enctype="multipart/form-data" class="login-form">
