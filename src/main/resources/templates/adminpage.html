@@ -15,12 +15,12 @@
 
     <form th:action="@{/addRole}" method="post"  class="login-form">
 
-        <select th:each="record : ${users}" name="username" >
-            <option th:value="${users.username}"></option>
+        <select  name="username" >
+            <option th:each="user : ${users}" th:value="${user.username}" th:text="${user.username}"></option>
         </select>
 
-        <select  th:each="record : ${roles}" name="rolename">
-            <option th:value="${roles.name}"></option>
+        <select   name="rolename">
+            <option th:each="role : ${roles}" th:value="${role.name}" th:text="${role.name}"></option>
         </select>
 
         <input type="submit" class="button" value="Сменить роль"/>

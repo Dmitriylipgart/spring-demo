@@ -35,14 +35,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(String username, String rolename) {
+    public void updateUser(String username, String rolename) {
 
         User user = users.findByUsername(username);
         Set<Role> set = user.getRoles();
-        set.add(roles.getRoleByName(rolename));
+        Role role = roles.getRoleByName(rolename);
+        set.add(role);
         user.setRoles(set);
         users.saveAndFlush(user);
-        return null;
+
     }
 
     @Override

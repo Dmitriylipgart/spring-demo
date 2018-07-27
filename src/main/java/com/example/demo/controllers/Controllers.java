@@ -70,10 +70,10 @@ public class Controllers {
 
     @RequestMapping(value = "/addRole", method = RequestMethod.POST)
     public String addRole(@RequestParam (name = "username", required = false) String username,
-                          @RequestParam (name = "role", required = false) String role)
+                          @RequestParam (name = "rolename", required = false) String rolename)
     {
 
-        userService.updateUser(username, role);
+        userService.updateUser(username, rolename);
 
         return "redirect:/login";
     }
