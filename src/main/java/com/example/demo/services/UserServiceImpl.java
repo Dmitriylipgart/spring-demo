@@ -3,6 +3,7 @@ package com.example.demo.services;
 import com.example.demo.entity.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService {
     }
     public String getCurrentUsername() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserDetails)auth.getPrincipal();
         return auth.getName();
     }
 }

@@ -13,7 +13,8 @@ import java.util.List;
 @Service
 public class FileRecordServiceImpl implements FileRecordService{
 
-    private final String path = "E:\\spring-demo\\src\\main\\resources\\static\\files\\";
+    private final String path = "E:\\spring-demo\\src\\main\\webapp\\files\\";
+    private final String pathDb = "/files/";
 
     @Autowired
     FileRecordRepository fileRecordRepository;
@@ -23,8 +24,7 @@ public class FileRecordServiceImpl implements FileRecordService{
 
         String filename = multipartFile.getOriginalFilename();
 
-        saveFileToDB(filename, description);
-        saveFileToDir(multipartFile, filename);
+        saveFileToDir(multipartFile, filename, description);
 
     }
 
@@ -52,15 +52,18 @@ public class FileRecordServiceImpl implements FileRecordService{
     }
 
     private void saveFileToDB(String filename, String description){
-        String filePathForDb = "/files/" + filename;
-        fileRecordRepository.saveAndFlush(new FileRecord(filename, description, filePathForDb));
+
+        fileRecordRepository.saveAndFlush(new FileRecord(filename, description, pathDb + filename));
     }
 
-    private void saveFileToDir(MultipartFile multipartFile, String filename){
+    private void saveFileToDir(MultipartFile multipartFile, String filename, String description){
 
-        String filePath = path + filename;
+        File dest = new File(path);
 
-        File dest = new File(filePath);
+        if (!dest.exists()) {
+            dest.mkdir();
+        }
+        dest = new File(path + filename);
         int i = 0;
         while (dest.exists()) {
             if (i == 0) {
@@ -70,6 +73,8 @@ public class FileRecordServiceImpl implements FileRecordService{
             }
             dest = new File(path + filename);
         }
+
+        saveFileToDB(filename, description);
         try {
             multipartFile.transferTo(dest);
         } catch (IOException e) {
